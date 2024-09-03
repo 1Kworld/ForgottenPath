@@ -6,70 +6,41 @@ import gradient_pygame as gp
 import random
 import os.path
 
+# Initialize Pygame
 pygame.init()
-#asks user for width and height
-print("Enter the dimensions of the piece (>150x150)")
 
-# input1 = input("Enter Width: ")
-# input1_int = int(input1)
-# input2 = input("Enter Height: ")
-# input2_int = int(input2)
+# Input dimensions
 input1_int = 500        
 input2_int = 500
-#continues to ask user for dimensions until > 150
-# while input1_int < 150 or input2_int < 150:
-#     input1 = input("Enter Width: ")
-#     input1_int = int(input1)
-#     input2 = input("Enter Height: ")
-#     input2_int = int(input2)
-        
 
+# Set up the screen
+screen_width, screen_height = input1_int, input2_int
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Forgotten Path")
 
-(Screenwidth, Screenheight) = (input1_int, input2_int)
-# red1 = random.randint(0, 255)
-# green2 = random.randint(0, 255)
-# blue3 = random.randint(0, 255)
+# Load and convert images
+image_paths = [f"data/{i:02d}.jpeg" for i in range(17)]  # Adjusted range to include 00.jpeg
+manyImages = [pygame.image.load(path).convert() for path in image_paths]
 
-#print(red1)
-#print(green2)
-#print(blue3)
-# color = (0,0,0)
-# bgC = (red1,green2,blue3)
+# Select a random image
+selected_image = random.choice(manyImages)
 
-pygame.display.set_mode()
-screen = pygame.display.set_mode((Screenwidth, Screenheight))
-# screen.fill(bgC)
-#hand selected images
-images = pygame.image.load("data/00.jpeg").convert()
-
-
-
-
-#array for images to randomize selection
-
-#images = manyImages[random.randint(0,138)]
-#original = pygame.transform.scale(images, (150, 150))
-#images = 
-#images = pygame.image.load("data/145.jpeg").convert()
-
-width = images.get_width()
-print("original image width = ", width) 
-
-height = images.get_height()
-print("original image height = ", height)
+# Get image dimensions
+width, height = selected_image.get_width(), selected_image.get_height()
+print("Original image width =", width)
+print("Original image height =", height)
 
 x1 = 0 
 y1 = 0
-x2 = Screenwidth - 10
-y2 = Screenheight - 10
-#screen.blit(images, (x1,y1))
-#pygame.display.flip()
+x2 = screen_height - 10
+y2 = screen_width - 10
+
 
 #10x10 subsections for entire user created canvas
-while (y1 < Screenheight / 2 ):
+while (y1 < screen_height / 2 ):
     x1 = 0
-    x2 = Screenwidth - 10
-    while (x1 < Screenwidth ):
+    x2 = screen_width - 10
+    while (x1 < screen_width ):
         x = random.randint(0,width -10)
         y = random.randint(0,height -10)
         crop_region = (x,y, 10, 10)
@@ -77,17 +48,15 @@ while (y1 < Screenheight / 2 ):
         y3 = random.randint(0,height -10)
         crop_region2 = (x3,y3, 10, 10)
        
-        screen.blit(images, (x1,y1), crop_region)
-        screen.blit(images, (x2,y2), crop_region2)
-        pygame.display.flip()
+        screen.blit(selected_image, (x1,y1), crop_region)
+        screen.blit(selected_image,(x2,y2), crop_region2)
+        #pygame.display.flip()
         x1 = x1 + 10   
         x2 = x2 - 10  
     y1 = y1 + 10
     y2 = y2 - 10
-#user inputs for width and height
-#checks to make sure height or width > 150
 
-
+#150x150 subsections
 a1 = random.randint(0,screen.get_width() - 150) 
 b1 = random.randint(0,screen.get_height() - 150) 
 for c in range (75):
@@ -95,8 +64,8 @@ for c in range (75):
     b = random.randint(0,height - 150)
     
     crop_region = (a,b, 150, 150)
-    screen.blit(images, (a1,b1), crop_region)
-    pygame.display.flip()
+    screen.blit(selected_image, (a1,b1), crop_region)
+    #pygame.display.flip()
     
     a1 = random.randint(0,screen.get_width() - 150)
     b1 = random.randint(0,screen.get_height() - 150) 
@@ -109,7 +78,7 @@ for b in range (150):
     b = random.randint(0,height - 50)
     
     crop_region = (a,b, 50, 50)
-    screen.blit(images, (a1,b1), crop_region)
+    screen.blit(selected_image, (a1,b1), crop_region)
     #pygame.display.flip()
     
     a1 = random.randint(0,screen.get_width() - 50)
@@ -123,7 +92,8 @@ for a in range (250):
     b = random.randint(0,height - 25)
     
     crop_region = (a,b, 25, 25)
-    screen.blit(images, (a1,b1), crop_region)
+    screen.blit(selected_image, (a1,b1), crop_region)
+
     #pygame.display.flip()
     
     a1 = random.randint(0,screen.get_width() - 25)
@@ -137,32 +107,13 @@ for a in range (100):
     b = random.randint(0,height - 15)
     
     crop_region = (a,b, 15, 15)
-    screen.blit(images, (a1,b1), crop_region)
+    screen.blit(selected_image, (a1,b1), crop_region)
+
     #pygame.display.flip()
     
     a1 = random.randint(0,screen.get_width() - 15)
     b1 = random.randint(0,screen.get_height() - 15)  
     
-# x = 0
-# y = 0
-# x1 = 500
-# y1 = 0    
-# for z in range(45):
-#     screen.blit(image, (x,y))
-#     x = x + 15
-#     y = y + 15
-#     abc = random.randint(1,2)
-#     print(abc)
-#     if abc == 1:
-#         continue
-#     else: 
-#         screen.blit(image, (x1,y1))
-#         x1 = x1 - 35
-#         y1 = y1 + 35    
-
-pygame.display.set_caption("Forgotten Path")
-#s = 580
-
 pygame.display.flip() 
 
 # Define a function for exiting program
@@ -173,5 +124,6 @@ running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False          
-
+            running = False
+            
+pygame.quit()
