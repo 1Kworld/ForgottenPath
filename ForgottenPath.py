@@ -6,41 +6,36 @@ import gradient_pygame as gp
 import random
 import os.path
 
-# Initialize Pygame
 pygame.init()
 
-# Input dimensions
-input1_int = 500        
-input2_int = 500
-
-# Set up the screen
-screen_width, screen_height = input1_int, input2_int
-screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Forgotten Path")
 
-# Load and convert images
+(Screenwidth, Screenheight) = (750, 750)
+
+pygame.display.set_mode()
+screen = pygame.display.set_mode((Screenwidth, Screenheight))
+
+
 image_paths = [f"data/{i:02d}.jpeg" for i in range(17)]  # Adjusted range to include 00.jpeg
 manyImages = [pygame.image.load(path).convert() for path in image_paths]
 
 # Select a random image
-selected_image = random.choice(manyImages)
+images = random.choice(manyImages)
 
-# Get image dimensions
-width, height = selected_image.get_width(), selected_image.get_height()
-print("Original image width =", width)
-print("Original image height =", height)
+width = images.get_width()
+print("Image width =", width) 
+height = images.get_height()
+print("Image height =", height)
 
 x1 = 0 
 y1 = 0
-x2 = screen_height - 10
-y2 = screen_width - 10
+x2 = Screenwidth - 10
+y2 = Screenheight - 10
 
-
-#10x10 subsections for entire user created canvas
-while (y1 < screen_height / 2 ):
+while (y1 < 750 / 2 ):
     x1 = 0
-    x2 = screen_width - 10
-    while (x1 < screen_width ):
+    x2 = 740
+    while (x1 < 750 ):
         x = random.randint(0,width -10)
         y = random.randint(0,height -10)
         crop_region = (x,y, 10, 10)
@@ -48,29 +43,30 @@ while (y1 < screen_height / 2 ):
         y3 = random.randint(0,height -10)
         crop_region2 = (x3,y3, 10, 10)
        
-        screen.blit(selected_image, (x1,y1), crop_region)
-        screen.blit(selected_image,(x2,y2), crop_region2)
-        #pygame.display.flip()
+        screen.blit(images, (x1,y1), crop_region)
+        screen.blit(images, (x2,y2), crop_region2)
+        pygame.display.flip()
         x1 = x1 + 10   
-        x2 = x2 - 10  
+        x2 = x2 - 10
+        
     y1 = y1 + 10
-    y2 = y2 - 10
-
-#150x150 subsections
+    y2 = y2 -10
+    
 a1 = random.randint(0,screen.get_width() - 150) 
-b1 = random.randint(0,screen.get_height() - 150) 
-for c in range (75):
-    a = random.randint(0,width - 150)
-    b = random.randint(0,height - 150)
-    
-    crop_region = (a,b, 150, 150)
-    screen.blit(selected_image, (a1,b1), crop_region)
-    #pygame.display.flip()
-    
-    a1 = random.randint(0,screen.get_width() - 150)
-    b1 = random.randint(0,screen.get_height() - 150) 
+b1 = random.randint(0,screen.get_height() - 150)
 
-#50x50 subsections 
+for c in range (75):
+     a = random.randint(0,width - 150)
+     b = random.randint(0,height - 150)
+     
+     crop_region = (a,b, 150, 150)
+     screen.blit(images, (a1,b1), crop_region)
+     pygame.display.flip()
+     pygame.time.delay(75)
+     
+     a1 = random.randint(0,screen.get_width() - 150)
+     b1 = random.randint(0,screen.get_height() - 150) 
+
 a1 = random.randint(0,screen.get_width() - 50) 
 b1 = random.randint(0,screen.get_height() - 50) 
 for b in range (150):
@@ -78,13 +74,13 @@ for b in range (150):
     b = random.randint(0,height - 50)
     
     crop_region = (a,b, 50, 50)
-    screen.blit(selected_image, (a1,b1), crop_region)
-    #pygame.display.flip()
+    screen.blit(images, (a1,b1), crop_region)
+    pygame.display.flip()
+    pygame.time.delay(50)
     
     a1 = random.randint(0,screen.get_width() - 50)
     b1 = random.randint(0,screen.get_height() - 50) 
     
-#25x25 subsections    
 a1 = random.randint(0,screen.get_width() - 25)
 b1 = random.randint(0,screen.get_height() - 25) 
 for a in range (250):
@@ -92,14 +88,14 @@ for a in range (250):
     b = random.randint(0,height - 25)
     
     crop_region = (a,b, 25, 25)
-    screen.blit(selected_image, (a1,b1), crop_region)
-
-    #pygame.display.flip()
+    screen.blit(images, (a1,b1), crop_region)
+    pygame.display.flip()
+    pygame.time.delay(25)
     
     a1 = random.randint(0,screen.get_width() - 25)
     b1 = random.randint(0,screen.get_height() - 25)   
      
-#15x15 subsections
+
 a1 = random.randint(0,screen.get_width() - 15)
 b1 = random.randint(0,screen.get_height() - 15) 
 for a in range (100):
@@ -107,23 +103,23 @@ for a in range (100):
     b = random.randint(0,height - 15)
     
     crop_region = (a,b, 15, 15)
-    screen.blit(selected_image, (a1,b1), crop_region)
-
-    #pygame.display.flip()
+    screen.blit(images, (a1,b1), crop_region)
+    pygame.display.flip()
+    pygame.time.delay(15)
     
     a1 = random.randint(0,screen.get_width() - 15)
     b1 = random.randint(0,screen.get_height() - 15)  
-    
+  
 pygame.display.flip() 
 
+
+
 # Define a function for exiting program
-#saves an image but replaces the image after each run
 pygame.image.save(screen, "image.png")
 running = True
 # Keep Displaying the window until close it manually
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-            
-pygame.quit()
+            running = False          
+
